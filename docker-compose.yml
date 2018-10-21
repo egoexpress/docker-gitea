@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    restart: always
+    env_file:
+      - db.env
+    volumes:
+      - db/:/var/lib/mysql
+    networks:
+      backend:
+
+  app:
+    image: gitea/gitea
+    volumes:
+      - data:/data
+    depends_on:
+      - db
+    restart: always
+    env_file:
+      - app.env
+    networks:
+      frontend:
+      backend:
+
+networks:
+  frontend:
+    external:
+      name: proxy_frontend
+  backend:
+
+volumes:
+  db:
+  data:
