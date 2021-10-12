@@ -6,7 +6,7 @@ services:
     image: mariadb:10.6
     restart: always
     volumes:
-      - db/:/var/lib/mysql
+      - db:/var/lib/mysql
     networks:
       backend:
 
@@ -23,9 +23,8 @@ services:
 
 networks:
   frontend:
-    external:
-      name: proxy_frontend
   backend:
+    internal: true
 
 volumes:
   db:
