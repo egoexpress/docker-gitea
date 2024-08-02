@@ -1,9 +1,7 @@
-version: '3'
-
 services:
 
   db:
-    image: mariadb:11.2
+    image: mariadb:11.4
     restart: always
     volumes:
       - db:/var/lib/mysql
@@ -11,7 +9,7 @@ services:
       backend:
 
   app:
-    image: egoexpress/gitea:1.21
+    image: egoexpress/gitea:1.22
     volumes:
       - data:/data
     depends_on:
