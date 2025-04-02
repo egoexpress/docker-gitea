@@ -9,7 +9,7 @@ services:
       backend:
 
   app:
-    image: egoexpress/gitea:1.22
+    image: egoexpress/gitea:1.23
     volumes:
       - data:/data
     depends_on:
