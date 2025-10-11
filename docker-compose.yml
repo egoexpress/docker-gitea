@@ -5,6 +5,11 @@ services:
     restart: always
     volumes:
       - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       backend:
 
@@ -12,6 +17,12 @@ services:
     image: egoexpress/gitea:1.24
     volumes:
       - data:/data
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - SSL_POLICY=Mozilla-Modern
     depends_on:
       - db
     restart: always
@@ -21,6 +32,8 @@ services:
 
 networks:
   frontend:
+    name: proxy_frontend
+    external: true
   backend:
     internal: true
 
