@@ -1,4 +1,4 @@
-FROM docker.io/gitea/gitea:1.25
+FROM docker.io/gitea/gitea:1.26
 
 RUN apk add --no-cache asciidoctor && \ 
     rm -vrf /var/cache/apk/*
