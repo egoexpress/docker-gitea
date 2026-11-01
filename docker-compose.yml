@@ -17,12 +17,18 @@ services:
     image: egoexpress/gitea:1.24
     volumes:
       - data:/data
+    ports:
+      - "127.0.0.1:2222:22"
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
       - SSL_POLICY=Mozilla-Modern
+      - GITEA__server__DOMAIN=${VIRTUAL_HOST}
+      - GITEA__server__ROOT_URL=https://${VIRTUAL_HOST}/
+      - GITEA__server__SSH_DOMAIN=${GITEA_SSH_DOMAIN:-${VIRTUAL_HOST}}
+      - GITEA__server__SSH_PORT=${GITEA_SSH_PORT:-2222}
     depends_on:
       - db
     restart: always
